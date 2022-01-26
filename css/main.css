@@ -1,0 +1,70 @@
+body {
+  background-image: url("background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+  margin: auto;
+}
+
+h1 {
+  background-color: rgba(108, 238, 255, 0.5);
+  display: inline-block;
+  margin-top: 3px;
+  margin-bottom: 4px;
+}
+
+table {
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  border-style: solid;
+  table-layout: fixed;
+}
+
+.boom {
+  background-color: rgb(248, 3, 3) !important;
+}
+
+.shown {
+  background-color: tomato !important;
+}
+
+.smile {
+  /* background-color: lawngreen; */
+  background-image: url("happy.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.cell {
+  background-color: rgb(15, 185, 15);
+  font-size: 33px;
+  box-sizing: border-box;
+  border: black;
+  width: 50px;
+  height: 50px;
+  line-height: 0px;
+
+  text-align: center;
+}
+
+.marked {
+  /* display: inline-block; */
+  background-image: url("flag.png");
+  line-height: 0px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+}
+
+.board {
+  margin: auto;
+  margin-top: 5px;
+  table-layout: fixed;
+}
