@@ -10,8 +10,12 @@ var gGame;
 var startTime; //interval ID
 var firstClick = true;
 var hintMode = false;
+var hintsCount = 3;
 var seconds = 0;
 //
+//sounds
+var lose = new Audio("sound/gameover.wav");
+var win = new Audio("sound/win.wav");
 //
 // elements
 var tableEl = document.querySelector("table");
@@ -22,8 +26,7 @@ var btnsEl = document.querySelectorAll(".levels");
 var timeEl = document.querySelector("span");
 var livesEl = document.querySelector(".lives span");
 var safeBtnEl = document.querySelector(".safe span");
-//
-//
+var hintEl = document.querySelector(".hint span");
 //
 
 function init() {
@@ -49,7 +52,7 @@ function startGame(cellEl, iIdx, jIdx) {
   renderBoard(gLevel.size, iIdx, jIdx);
   firstClick = false;
   startTime = setInterval(countSeconds, 1000);
-
+  gGame.shownCount++;
   showNeighbors(cellEl, iIdx, jIdx);
 }
 
@@ -78,6 +81,11 @@ function changeLevel(btnEl) {
 }
 
 function newGame() {
+  hintMode = false;
+  hintsCount = 3;
+  tableEl.style.borderColor = "";
+  tableEl.style.cursor = "default";
+  hintEl.innerText = 3;
   livesCount = 3;
   safeClicksCount = 3;
   safeBtnEl.innerText = 3;
@@ -107,7 +115,6 @@ function setMinesNegsCount(board) {
       if (!board[i][j].isMine) {
         board[i][j].minesAroundCount = countMineNeighbors(board, i, j);
       }
-      //   console.log(countMineNeighbors(i, j));
     }
   }
 }
@@ -157,7 +164,7 @@ function rightClick(cellEl, idxI, idxJ) {
     gGame.correctMarksCount += gCell.isMine ? 1 : -1;
   }
 
-  if (gGame.correctMarksCount === gLevel.mines) victory();
+  checkIfVictory();
 
   cellEl.classList.toggle("marked");
 }
@@ -169,14 +176,46 @@ function leftClick(cellEl, iIdx, jIdx) {
   }
   if (!gGame.isOn) return;
   var gCell = gBoard[iIdx][jIdx];
-  if (gCell.isMarked) return;
+  if (gCell.isMarked || gCell.isShown) return;
   //   var location = getDataFromElement();
+  if (hintMode) {
+    ChosenCellHint(cellEl, iIdx, jIdx);
+    return;
+  }
   if (gCell.isMine) {
     mineClicked(cellEl);
     return;
   }
-
+  gGame.shownCount++;
   showNeighbors(cellEl, iIdx, jIdx);
+  checkIfVictory();
+}
+
+function ChosenCellHint(cellEl, iIdx, jIdx) {
+  hintMode = false;
+  var str;
+  var gCell = gBoard[iIdx][jIdx];
+  if (gCell.isMine) {
+    str = "💣";
+  } else {
+    str = gCell.minesAroundCount;
+  }
+  cellEl.innerText = str;
+  tableEl.style.borderColor = "";
+  tableEl.style.cursor = "default";
+  setTimeout(() => {
+    cellEl.innerText = "";
+  }, 500);
+}
+
+function hintClicked() {
+  if (!gGame.isOn || firstClick || hintMode || !hintsCount) return;
+
+  tableEl.style.borderColor = "blue";
+  tableEl.style.cursor = "help";
+  hintsCount--;
+  hintEl.innerText = hintsCount;
+  hintMode = true;
 }
 
 function safeClick() {
@@ -193,7 +232,7 @@ function safeClick() {
   safeCellEl.classList.add("safe-cell");
   setTimeout(() => {
     safeCellEl.classList.remove("safe-cell");
-  }, 700);
+  }, 1000);
 }
 
 function getSafeCells() {
@@ -214,6 +253,7 @@ function showNeighbors(cellEl, iIdx, jIdx) {
   if (gCell.isShown) return;
   gCell.isShown = true;
   cellEl.classList.add("shown");
+
   if (gCell.minesAroundCount) {
     cellEl.innerText = gCell.minesAroundCount;
   } else {
@@ -242,7 +282,6 @@ function showNeighbors(cellEl, iIdx, jIdx) {
 
           showNeighbors(neigCellEl, i, j);
         }
-
         gBoard[i][j].isShown = true;
         gGame.shownCount++;
       }
@@ -271,14 +310,24 @@ function gameOver(cellEl) {
   smile.style.backgroundImage = 'url("css/sad.png")';
   cellEl.classList.add("boom");
   showAllMines();
+  lose.play();
   gGame.isOn = false;
 }
 
 function victory() {
   smile.style.backgroundImage = 'url("css/win1.png")';
+  win.play();
   clearTime();
   showAllMines();
   gGame.isOn = false;
+}
+
+function checkIfVictory() {
+  if (
+    gGame.correctMarksCount === gLevel.mines &&
+    gGame.shownCount === gLevel.size ** 2 - gLevel.mines
+  )
+    victory();
 }
 
 function clearTime() {
@@ -340,11 +389,3 @@ function showAllMines() {
     }
   }
 }
-
-// function getDataFromElement(cellEl) {
-//   var classEl = cellEl.classList[1];
-//   var data = {};
-//   data.i = classEl.split("-")[1];
-//   data.j = classEl.split("-")[2];
-//   return data;
-// }
