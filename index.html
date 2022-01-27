@@ -8,8 +8,18 @@
     <title>Minesweeper!</title>
   </head>
   <body onload="init()">
-    <h1>Game time: <span>00:00</span></h1>
+    <h1>Game time: <span>0</span></h1>
+    <h1 class="lives">lives(<span>3</span>)</h1>
     <div class="smile" onclick="newGame()"></div>
+    <div class="lev easy">
+      <button class="levels curr" onclick="changeLevel(this)">easy</button>
+      <button class="levels" onclick="changeLevel(this)">medium</button>
+      <button class="levels" onclick="changeLevel(this)">hard</button>
+    </div>
+    <button class="hint">Hint(<span>3</span>)</button>
+    <button class="safe" onclick="safeClick()">
+      SAFE CLICK (<span>3</span>)
+    </button>
     <div class="board">
       <table></table>
     </div>

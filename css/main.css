@@ -14,6 +14,11 @@ h1 {
   margin-bottom: 4px;
 }
 
+.lives {
+  margin-left: 100px;
+  background-color: rgb(23, 255, 23, 0.65);
+}
+
 table {
   width: 400px;
   height: 400px;
@@ -30,14 +35,19 @@ table {
   background-color: tomato !important;
 }
 
+.safe-cell {
+  background-color: rgb(36, 36, 255, 0.3) !important;
+  transition: 0.7s;
+}
+
 .smile {
   /* background-color: lawngreen; */
   background-image: url("happy.png");
   background-repeat: no-repeat;
   background-size: contain;
   margin: auto;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   cursor: pointer;
 }
 
@@ -49,8 +59,8 @@ table {
   width: 50px;
   height: 50px;
   line-height: 0px;
-
   text-align: center;
+  transition: 0.3s;
 }
 
 .marked {
@@ -63,8 +73,52 @@ table {
   height: 50px;
 }
 
+.hint {
+  display: inline-block;
+  width: 100px;
+  height: 30px;
+  margin-top: 3px;
+  margin-bottom: 18px;
+  border-radius: 40px;
+  background-color: rgb(50, 252, 50);
+  margin: auto;
+  cursor: help;
+}
+
+.safe {
+  display: inline-block;
+  width: 130px;
+  height: 30px;
+  margin-top: 3px;
+  margin-bottom: 18px;
+  border-radius: 40px;
+  background-color: rgb(46, 255, 46);
+  font-size-adjust: inherit;
+  margin: auto;
+  cursor: help;
+}
+
 .board {
   margin: auto;
   margin-top: 5px;
   table-layout: fixed;
+}
+
+.curr {
+  background-color: yellow !important;
+}
+
+.levels {
+  width: 100px;
+  height: 30px;
+  margin-top: 3px;
+  margin-bottom: 18px;
+  border-radius: 40px;
+  background-color: rgb(50, 228, 252);
+  cursor: pointer;
+}
+
+.lev {
+  width: 320px;
+  margin: auto;
 }
