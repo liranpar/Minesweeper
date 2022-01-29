@@ -4,7 +4,8 @@ body {
   background-attachment: fixed;
   background-size: cover;
   text-align: center;
-  margin: auto;
+  transition: 0.8s;
+  /* margin: auto; */
 }
 
 h1 {
@@ -22,10 +23,29 @@ table {
   table-layout: fixed;
   max-height: 100%;
   zoom: 80%;
+  transition: 0.5s;
+}
+
+.time {
+  display: inline-block;
+  width: 125px;
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.seven {
+  height: 45px;
+  margin: auto;
+  margin-right: 7px;
+  margin-top: 1px;
+  border-radius: 20%;
+  background-color: rgb(53, 0, 35);
+  color: aqua;
 }
 
 .lives {
-  margin-left: 100px;
+  margin: auto;
+  margin-right: 7px;
   background-color: rgb(23, 255, 23, 0.65);
 }
 
@@ -51,6 +71,25 @@ table {
   width: 80px;
   height: 80px;
   cursor: pointer;
+}
+
+.modal {
+  height: 150px;
+  width: 270px;
+  display: flex;
+  display: none;
+
+  transition: 1s;
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border-color: blue;
+  border-style: ridge;
+  background-color: rgb(255, 130, 255, 1);
+  font-size: x-large;
 }
 
 .cell {

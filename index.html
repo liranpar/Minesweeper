@@ -8,8 +8,10 @@
     <title>Minesweeper!</title>
   </head>
   <body onload="init()">
-    <h1>Game time: <span>0</span></h1>
     <h1 class="lives"><span>3</span> lives left</h1>
+    <button onclick="sevenBoom()" class="seven">7-Boom!</button>
+    <h1 class="time">Time: <span>0</span></h1>
+
     <div class="smile" onclick="newGame()"></div>
     <div class="lev easy">
       <button class="levels curr" onclick="changeLevel(this)">easy</button>
@@ -21,9 +23,11 @@
     <button class="safe" onclick="safeClick()">
       SAFE CLICK (<span>3</span>)
     </button>
+
     <div class="board">
       <table></table>
     </div>
+    <div class="modal">Click a cell to reveal his content!</div>
     <script src="script/util.js"></script>
     <script src="script/game.js"></script>
   </body>
